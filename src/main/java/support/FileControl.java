@@ -53,62 +53,67 @@ public class FileControl {
 //        }
 //    }
     public void writeToFile(ArrayList<Worker> workers, String file) throws IOException, XMLStreamException {
-        XMLOutputFactory factory = XMLOutputFactory.newInstance();
-        XMLStreamWriter writer = factory.createXMLStreamWriter(new FileOutputStream(file), "UTF-8");
-        writer.writeStartDocument("UTF-8", "1.0");
-        writer.writeStartElement("workers");
-        for (Worker worker : workers) {
-            writer.writeStartElement("worker");
-            writer.writeStartElement("name");
-            writer.writeCharacters(worker.getName());
+        try {
+            file = file.trim() + "\\workers.xml".trim();
+            XMLOutputFactory factory = XMLOutputFactory.newInstance();
+            XMLStreamWriter writer = factory.createXMLStreamWriter(new FileOutputStream(file), "UTF-8");
+            writer.writeStartDocument("UTF-8", "1.0");
+            writer.writeStartElement("workers");
+            for (Worker worker : workers) {
+                writer.writeStartElement("worker");
+                writer.writeStartElement("name");
+                writer.writeCharacters(worker.getName());
+                writer.writeEndElement();
+                writer.writeStartElement("coordinates");
+                writer.writeStartElement("x");
+                writer.writeCharacters(String.valueOf(worker.getCoordinates().getX()));
+                writer.writeEndElement();
+                writer.writeStartElement("y");
+                writer.writeCharacters(String.valueOf(worker.getCoordinates().getY()));
+                writer.writeEndElement();
+                writer.writeEndElement();
+                writer.writeStartElement("salary");
+                writer.writeCharacters(String.valueOf(worker.getSalary()));
+                writer.writeEndElement();
+                writer.writeStartElement("position");
+                writer.writeCharacters(String.valueOf(worker.getPosition()));
+                writer.writeEndElement();
+                writer.writeStartElement("status");
+                writer.writeCharacters(String.valueOf(worker.getStatus()));
+                writer.writeEndElement();
+                writer.writeStartElement("person");
+                writer.writeStartElement("birthday");
+                writer.writeCharacters(String.valueOf(worker.getPerson().getBirthday()));
+                writer.writeEndElement();
+                writer.writeStartElement("height");
+                writer.writeCharacters(String.valueOf(worker.getPerson().getHeight()));
+                writer.writeEndElement();
+                writer.writeStartElement("passportID");
+                writer.writeCharacters(worker.getPerson().getPassportID());
+                writer.writeEndElement();
+                writer.writeStartElement("location");
+                writer.writeStartElement("x");
+                writer.writeCharacters(String.valueOf(worker.getPerson().getLocation().getX()));
+                writer.writeEndElement();
+                writer.writeStartElement("y");
+                writer.writeCharacters(String.valueOf(worker.getPerson().getLocation().getY()));
+                writer.writeEndElement();
+                writer.writeStartElement("z");
+                writer.writeCharacters(String.valueOf(worker.getPerson().getLocation().getZ()));
+                writer.writeEndElement();
+                writer.writeStartElement("name");
+                writer.writeCharacters(worker.getPerson().getLocation().getName());
+                writer.writeEndElement();
+                writer.writeEndElement();
+                writer.writeEndElement();
+            }
             writer.writeEndElement();
-            writer.writeStartElement("coordinates");
-            writer.writeStartElement("x");
-            writer.writeCharacters(String.valueOf(worker.getCoordinates().getX()));
-            writer.writeEndElement();
-            writer.writeStartElement("y");
-            writer.writeCharacters(String.valueOf(worker.getCoordinates().getY()));
-            writer.writeEndElement();
-            writer.writeEndElement();
-            writer.writeStartElement("salary");
-            writer.writeCharacters(String.valueOf(worker.getSalary()));
-            writer.writeEndElement();
-            writer.writeStartElement("position");
-            writer.writeCharacters(String.valueOf(worker.getPosition()));
-            writer.writeEndElement();
-            writer.writeStartElement("status");
-            writer.writeCharacters(String.valueOf(worker.getStatus()));
-            writer.writeEndElement();
-            writer.writeStartElement("person");
-            writer.writeStartElement("birthday");
-            writer.writeCharacters(String.valueOf(worker.getPerson().getBirthday()));
-            writer.writeEndElement();
-            writer.writeStartElement("height");
-            writer.writeCharacters(String.valueOf(worker.getPerson().getHeight()));
-            writer.writeEndElement();
-            writer.writeStartElement("passportID");
-            writer.writeCharacters(worker.getPerson().getPassportID());
-            writer.writeEndElement();
-            writer.writeStartElement("location");
-            writer.writeStartElement("x");
-            writer.writeCharacters(String.valueOf(worker.getPerson().getLocation().getX()));
-            writer.writeEndElement();
-            writer.writeStartElement("y");
-            writer.writeCharacters(String.valueOf(worker.getPerson().getLocation().getY()));
-            writer.writeEndElement();
-            writer.writeStartElement("z");
-            writer.writeCharacters(String.valueOf(worker.getPerson().getLocation().getZ()));
-            writer.writeEndElement();
-            writer.writeStartElement("name");
-            writer.writeCharacters(worker.getPerson().getLocation().getName());
-            writer.writeEndElement();
-            writer.writeEndElement();
-            writer.writeEndElement();
+            writer.writeEndDocument();
+            writer.flush();
+            writer.close();
+        }catch (FileNotFoundException e){
+            Console.err("сюда сохранить невозможно!");
         }
-        writer.writeEndElement();
-        writer.writeEndDocument();
-        writer.flush();
-        writer.close();
     }
     /**
      * Reads worker information from an XML file and returns a list of workers

@@ -83,7 +83,7 @@ public class CommunicationControl {
                 System.out.print("Введите рост: ");
                 String line = scanner.nextLine();
                 long height = Long.parseLong(line);
-                if (height <= 0) {
+                if ((height <= 0) || (height >400) ) {
                     throw new WrongArgumentsException("Высота не может быть меньше или равна нулю");
                 }
                 return height;
@@ -108,8 +108,8 @@ public class CommunicationControl {
                 if (passportID.isEmpty()) {
                     throw new EmptyInputException("Номер паспорта не может быть пустым");
                 }
-                if (!passportID.matches("\\d+")) {
-                    throw new WrongArgumentsException("Номер паспорта должен содержать только цифры");
+                if ((!passportID.matches("\\d+") || (passportID.length() != 6))) {
+                    throw new WrongArgumentsException("Номер паспорта должен содержать только цифры(6 цифр)");
                 }
                 return passportID;
             } catch (Exception e) {
@@ -136,7 +136,6 @@ public class CommunicationControl {
                 return bd;
             }catch (WrongArgumentsException e){
                 Console.err(e.getMessage());
-                return null;
             }catch (DateTimeParseException e){
                 Console.err("неверный формат даты!");
             } catch (Exception e) {
