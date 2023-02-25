@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4815b392-c1ba-4fda-9f56-81bcccaca83f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/commands/AbstractCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/commands/AddElement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/commands/AddElementIfMin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/commands/Clear.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/commands/Command.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/commands/ExecuteScript.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/commands/Exit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/commands/FilterGreaterStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/commands/GroupByStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/commands/Help.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/commands/Info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/commands/PrintFieldOfPerson.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/commands/RemoveElementByID.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/commands/RemoveGreater.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/commands/SaveCollection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/commands/Show.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/commands/Sort.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/commands/UpdateByID.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/data/Coordinates.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/data/Location.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/data/Person.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/data/Position.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/data/Status.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/data/Worker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/exceptions/EmptyInputException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/exceptions/InputException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/exceptions/PermissionsDeniedException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/exceptions/WrongArgumentsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/exceptions/WrongClassException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/exceptions/WrongCommandException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/support/CollectionControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/support/CommandControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/support/CommunicationControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/support/Console.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/support/FileControl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/support/ParserXml.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2M6LwqY4ZrgOSX1KBtwAr75kw63" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/shorn/IdeaProjects/untitled2",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "configurable.group.appearance"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\shorn\IdeaProjects\MyLab5\src\main\java" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4815b392-c1ba-4fda-9f56-81bcccaca83f" name="Changes" comment="" />
+      <created>1677083330352</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1677083330352</updated>
+      <workItem from="1677083332406" duration="9461000" />
+      <workItem from="1677098173798" duration="617000" />
+      <workItem from="1677098873057" duration="5144000" />
+      <workItem from="1677169302523" duration="118000" />
+      <workItem from="1677169632793" duration="13865000" />
+      <workItem from="1677239173011" duration="4989000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
