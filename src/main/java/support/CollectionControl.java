@@ -1,3 +1,13 @@
+/**
+
+ The CollectionControl class manages a collection of Worker objects and provides methods for manipulating
+ and accessing the data. It implements various operations such as sorting, filtering, grouping and updating
+ the elements of the collection. It also interacts with the FileControl and CommunicationControl classes to
+ read/write data from/to files and receive input from the user, respectively. The class has a HashMap to store
+ the mapping of available commands, and a LocalDateTime variable to keep track of the time of initialization
+ of the collection. The class has public methods for adding, removing and updating elements of the collection,
+ as well as for displaying information about the collection.
+ */
 package support;
 
 import commands.Command;
@@ -18,40 +28,43 @@ public class CollectionControl {
     protected static LocalDateTime timeInitialization = null;
     FileControl fileControl;
     CommunicationControl communicationControl;
-
     /**
-     * CollectionControl constructor which accepts a FileControl and CommunicationControl object to be used by the class.
+     * Constructor for the CollectionControl class. It initializes the fileControl and communicationControl objects
+     * and sets the BufferOfCommandMap to null.
      *
-     * @param fileControl          FileControl object used to perform file operations.
-     * @param communicationControl CommunicationControl object used to perform user input/output operations.
+     * @param fileControl the FileControl object to use for reading/writing data from/to files
+     * @param communicationControl the CommunicationControl object to use for receiving input from the user
      */
+
     public CollectionControl(FileControl fileControl, CommunicationControl communicationControl) {
         this.fileControl = fileControl;
         this.communicationControl = communicationControl;
         this.BufferOfCommandMap = null;
     }
-
     /**
-     * Method for setting the buffer of commands for the CollectionControl class.
+     * Sets the BufferOfCommandMap to the specified HashMap.
      *
-     * @param map a HashMap containing String keys and Command values.
+     * @param map the HashMap to set the BufferOfCommandMap to
      */
+
     public void getMappingOfCommands(HashMap<String, Command> map) {
         this.BufferOfCommandMap = map;
     }
 
+
     /**
-     * Method for retrieving the buffer of commands for the CollectionControl class.
+     * Returns the current BufferOfCommandMap HashMap.
      *
-     * @return a HashMap containing String keys and Command values.
+     * @return the current BufferOfCommandMap HashMap
      */
     public HashMap<String, Command> sendCommandMap() {
         return this.BufferOfCommandMap;
     }
 
     /**
-     * Method for clearing the workersCollection ArrayList.
+     * Clears the workersCollection ArrayList.
      */
+
     public void clear() {
         workersCollection.clear();
         Console.writeln("Коллекция очистилась...");
@@ -59,23 +72,26 @@ public class CollectionControl {
     }
 
     /**
-     * Method for sorting the workersCollection ArrayList.
+     * Sorts the workersCollection ArrayList in ascending order based on the natural ordering of the elements.
      */
     public void sort() {
         Collections.sort(workersCollection);
     }
 
     /**
-     * Method for removing all Worker objects in the workersCollection ArrayList whose salary is greater than that of another Worker object.
+     * Removes all elements from the workersCollection ArrayList that are greater than the specified Worker object
+     * based on the natural ordering of the elements.
      *
-     * @param enotherWorker a Worker object to compare salary with.
+     * @param enotherWorker the Worker object to compare the elements to
      */
     public void removeGreater(Worker enotherWorker) {
         workersCollection.removeIf(worker -> enotherWorker.compareTo(worker) > 0);
     }
 
     /**
-     * Method for saving the workersCollection ArrayList to a file using FileControl.
+     * Saves the current workersCollection ArrayList to a file with the specified name.
+     *
+     * @param file the name of the file to save the collection to
      */
     public void saveCollection(String file) {
         try {
@@ -84,18 +100,21 @@ public class CollectionControl {
             throw new RuntimeException(e);
         }
     }
-
     /**
-     * Method for filtering and returning a new ArrayList containing all Worker objects in workersCollection whose status is greater than that specified in the argument.
-     *
-     * @param line a String representing the Status object to compare with.
-     * @return an ArrayList of Worker objects whose status is greater than the specified Status.
-     * @throws IllegalArgumentException if the input String does not represent a valid Status object.
+
+     Filters workers with a status greater than the given string and returns an ArrayList of the filtered workers.
+
+     @param line the status to compare against.
+
+     @return an ArrayList of the filtered workers.
+
+     @throws IllegalArgumentException if the given string is not a valid status.
      */
+
     public ArrayList<Worker> filterGreaterThanStatus(String line) throws IllegalArgumentException {
         ArrayList<Worker> workerList = new ArrayList<>();
         try {
-            Status person = Status.valueOf(line);
+            Status person = Status.valueOf(line.toUpperCase());
 
 
             for (Worker worker : workersCollection) {
@@ -110,7 +129,8 @@ public class CollectionControl {
     }
 
     /**
-     * Groups workers in the collection by their status and prints the number of workers for each status.
+
+     Groups the workers in the collection by their status and outputs the number of workers for each status.
      */
     public void gropByStatus() {
 
@@ -122,7 +142,8 @@ public class CollectionControl {
     }
 
     /**
-     * Prints information about the collection, including its type, time of initialization, and number of elements.
+
+     Outputs information about the worker collection, including the type, time of initialization, and number of elements.
      */
     public void getInfo() {
         Console.writeln("Тип: Worker" + "\n" +
@@ -132,9 +153,8 @@ public class CollectionControl {
     }
 
     /**
-     * Sorts the collection of Worker objects by name in ascending order and prints the associated Person objects.
-     * The method retrieves the associated Person object for each Worker and sorts the Person objects using the compareTo method implemented in the Person class.
-     * The sorted Person objects are printed to the console using the Console.writeln method.
+
+     Sorts the workers in the collection by their person object and outputs the sorted list.
      */
     public void sortPerson() {
         ArrayList<Person> sortedPerson = new ArrayList<>();
@@ -147,9 +167,9 @@ public class CollectionControl {
     }
 
     /**
-     * Removes the worker from the collection with the specified ID.
-     *
-     * @param id The ID of the worker to remove.
+
+     Removes the worker from the collection with the given ID.
+     @param id the ID of the worker to remove.
      */
     public void removeElementByID(int id) {
         try {
@@ -158,10 +178,11 @@ public class CollectionControl {
             Console.err("Элемента с такии id нет в коллекции");
         }
     }
-
     /**
-     * Prints information about each worker in the collection.
+
+     Outputs each worker in the collection using their toString method.
      */
+
     public void show() {
         for (Worker worker : workersCollection) {
             Console.writeln(worker.toString());
@@ -169,20 +190,20 @@ public class CollectionControl {
     }
 
     /**
-     * Adds a worker to the collection.
-     *
-     * @param worker The worker to add to the collection.
+
+     Adds the given worker to the collection.
+     @param worker the worker to add to the collection.
      */
     public void addToCollection(Worker worker) {
         workersCollection.add(worker);
     }
-
     /**
-     * Adds a worker to the collection if their salary is smaller than the minimum salary of all workers in the collection.
-     *
-     * @param newWorker The worker to add to the collection.
-     * @return True if the worker was added to the collection, false otherwise.
+
+     Adds the given worker to the collection if their salary is smaller than the minimum salary in the collection.
+     @param newWorker the worker to add to the collection.
+     @return true if the worker was added, false otherwise.
      */
+
     public boolean addIfSmallerSalary(Worker newWorker) {
         if (workersCollection.isEmpty() || newWorker.getSalary() < Collections.min(workersCollection, Comparator.comparing(Worker::getSalary)).getSalary()) {
             workersCollection.add(newWorker);
@@ -192,9 +213,9 @@ public class CollectionControl {
     }
 
     /**
-     * Updates the worker in the collection with the specified ID with new information.
-     *
-     * @param id The ID of the worker to update.
+
+     Updates the worker in the collection with the given ID.
+     @param id the ID of the worker to update.
      */
     public void updateByID(int id) {
         try {
@@ -210,8 +231,8 @@ public class CollectionControl {
     }
 
     /**
-     * Updates the IDs of all workers in the collection, assigning them sequential IDs starting from 1.
-     * This method is useful when workers have been added or removed from the collection and IDs need to be updated accordingly.
+
+     Clear all id of elements in collection
      */
     public void updateAllIDs() {
         for (int i = 0; i < workersCollection.size(); i++) {

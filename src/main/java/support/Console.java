@@ -1,7 +1,6 @@
 /**
- * This class is responsible for interaction with the user via console.
- * It uses Scanner object to read user input, CommandControl to execute commands
- * and FileControl and CollectionControl to read/write data.
+ * A class that represents a console for interacting with the program. It handles user input, executes commands, and
+ * outputs messages to the console.
  */
 package support;
 
@@ -9,7 +8,6 @@ import commands.Command;
 import data.Worker;
 import exceptions.EmptyInputException;
 import exceptions.InputException;
-import exceptions.WrongArgumentsException;
 
 import java.util.List;
 import java.util.Scanner;
@@ -21,14 +19,14 @@ public class Console {
     private final CommandControl commandControl;
 
     /**
-     * Constructs a new Console object with a Scanner, CommandControl, FileControl,
-     * and CollectionControl object.
+     * Constructs a new Console object.
      *
-     * @param scanner           the Scanner object to read user input
-     * @param commandControl    the CommandControl object to execute commands
-     * @param fileControl       the FileControl object to read/write data
-     * @param collectionControl the CollectionControl object to add workers to collection
+     * @param scanner          a Scanner object to read user input from the console
+     * @param commandControl   a CommandControl object to access and execute commands
+     * @param fileControl      a FileControl object to read and write data to files
+     * @param collectionControl a CollectionControl object to access and manipulate the collection of workers
      */
+
     public Console(Scanner scanner, CommandControl commandControl, FileControl fileControl, CollectionControl collectionControl) {
         this.scanner = scanner;
         this.commandControl = commandControl;
@@ -38,16 +36,12 @@ public class Console {
     }
 
     /**
-     * Starts the interactive mode where the program reads user input and executes
-     * corresponding commands until the program is terminated.
-     *
-     * @throws InputException      if an invalid command is entered
-     * @throws EmptyInputException if the user enters an empty command
+     * Starts an interactive session with the user. Reads user input, executes commands, and outputs messages to the console.
      */
     public void interactive() {
         String[] userCommand;
         List<Worker> setWorkerList = fileControl.readXmlFile();
-        if (setWorkerList != null){
+        if (setWorkerList != null) {
             for (Worker worker : setWorkerList) {
                 collectionControl.addToCollection(worker);
             }
@@ -69,11 +63,11 @@ public class Console {
     }
 
     /**
-     * Returns the Command object associated with the given user command.
+     * Searches for and returns the Command object corresponding to the user's input.
      *
-     * @param userCommand the user command to get the Command object for
-     * @return the Command object associated with the given user command
-     * @throws InputException if an invalid command is entered
+     * @param userCommand an array containing the user's input, with the first element being the command name and the second element being its arguments
+     * @return the Command object corresponding to the user's input
+     * @throws InputException if the command specified by the user is not recognized
      */
 
     public Command chooseCommand(String[] userCommand) throws InputException {
@@ -85,31 +79,31 @@ public class Console {
         throw new InputException();
     }
 
-    /**
-     * Prints the given object to the console without a newline character.
-     *
-     * @param outPut the object to print to the console
-     */
 
+    /**
+     * Outputs the specified object to the console, without adding a newline character.
+     *
+     * @param outPut the object to output to the console
+     */
     public static void write(Object outPut) {
         System.out.print(outPut);
     }
 
     /**
-     * Prints the given object to the console with a newline character.
+     * Outputs the specified object to the console, followed by a newline character.
      *
-     * @param outPut the object to print to the console
+     * @param outPut the object to output to the console
      */
     public static void writeln(Object outPut) {
         System.out.println(outPut);
     }
 
     /**
-     * Prints the given object to the console with an "Error: " prefix and a newline character.
+     * Outputs the specified object to the console as an error message, preceded by the string "Error: ".
      *
-     * @param outPut the object to print to the console
+     * @param outPut the object to output to the console as an error message
      */
     public static void err(Object outPut) {
-        System.out.println("Error: " + outPut);
+        System.err.println("Error: " + outPut);
     }
 }

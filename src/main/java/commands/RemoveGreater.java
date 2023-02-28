@@ -1,47 +1,52 @@
+/**
+ * The RemoveGreater class represents a command to remove all elements from the collection
+ * that are greater than the specified element.
+ */
 package commands;
 
 import data.Worker;
+import exceptions.InputException;
 import exceptions.WrongArgumentsException;
 import support.CollectionControl;
 import support.CommunicationControl;
 import support.Console;
 
-/**
- * The RemoveGreater class represents a command to remove all elements from the collection
- * that are greater than the specified element.
- */
-public class RemoveGreater extends AbstractCommand{
+
+public class RemoveGreater extends AbstractCommand {
     CollectionControl collectionControl;
     CommunicationControl communicationControl;
 
     /**
-     * Constructs the RemoveGreater object with the specified CollectionControl and CommunicationControl objects.
+     * Constructs a new RemoveGreater command with the specified CollectionControl and
+     * CommunicationControl.
      *
-     * @param collectionControl the CollectionControl object to be used
-     * @param communicationControl the CommunicationControl object to be used
+     * @param collectionControl The CollectionControl instance to use for command execution.
+     * @param communicationControl The CommunicationControl instance to use for user interaction.
      */
     public RemoveGreater(CollectionControl collectionControl, CommunicationControl communicationControl) {
         super("remove_greater", "Remove all elements from the collection that are greater than the specified element");
         this.collectionControl = collectionControl;
         this.communicationControl = communicationControl;
     }
-
     /**
-     * Executes the RemoveGreater command by invoking the removeGreater() method on the CollectionControl object.
+     * Executes the RemoveGreater command.
      *
-     * @param argument the argument to be passed to the command
+     * @param argument The command argument (not used).
      */
+
     @Override
     public void execute(String argument) {
         try {
-            if(!argument.isEmpty()) throw new WrongArgumentsException();
+            if (!argument.isEmpty()) throw new WrongArgumentsException();
             collectionControl.removeGreater(new Worker(communicationControl.setName(),
                     communicationControl.setCoordinates(), communicationControl.setSalary(),
                     communicationControl.choosePosition(), communicationControl.chooseStatus(),
                     communicationControl.setPerson()));
             collectionControl.updateAllIDs();
-        }catch (WrongArgumentsException e){
+        } catch (WrongArgumentsException e) {
             Console.err(e.getMessage());
+        } catch (InputException e) {
+            Console.err("Некорректный данные в скрипте!");
         }
 
     }

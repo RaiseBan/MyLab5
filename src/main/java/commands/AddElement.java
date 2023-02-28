@@ -1,30 +1,29 @@
 /**
- * The {@code AddElement} class represents a command that adds a new worker element to the collection.
- * The command requires the communicationControl and collectionControl instances to communicate with the user
- * and modify the collection.
- * Extends {@code AbstractCommand} abstract class.
+
+ The {@code AddElement} class represents a command that adds a new worker element to the collection.
+ The command requires instances of {@link CommunicationControl} and {@link CollectionControl} to communicate with the user
+ and modify the collection, respectively.
+ This class extends the {@link AbstractCommand} abstract class.
  */
 package commands;
 
 import data.Worker;
+import exceptions.InputException;
 import exceptions.WrongArgumentsException;
 import support.CollectionControl;
 import support.CommunicationControl;
 import support.Console;
 
 public class AddElement extends AbstractCommand{
-    /**
-     * The communicationControl instance used for user interaction.
-     */
+
     private CommunicationControl communicationControl;
-    /**
-     * The collectionControl instance used to modify the collection.
-     */
+
     private CollectionControl collectionControl;
     /**
-     * Constructs a new AddElement instance with the given communicationControl and collectionControl instances.
-     * @param communicationControl the communicationControl instance to use for user interaction.
-     * @param collectionControl the collectionControl instance to use for collection modification.
+     * Constructs an {@code AddElement} object with the specified instances of {@link CommunicationControl} and {@link CollectionControl}.
+     *
+     * @param communicationControl the {@link CommunicationControl} instance to be used for communication with the user
+     * @param collectionControl the {@link CollectionControl} instance to be used for modifying the collection
      */
     public AddElement(CommunicationControl communicationControl, CollectionControl collectionControl) {
         super("addElement", "Добавить элемент в коллекцию");
@@ -32,8 +31,9 @@ public class AddElement extends AbstractCommand{
         this.collectionControl = collectionControl;
     }
     /**
-     * Adds a new worker element to the collection.
-     * @param argument The command argument, not used in this command.
+     * Executes the command by adding a new worker element to the collection.
+     *
+     * @param argument the command argument
      */
     public void execute(String argument){
         try {
@@ -44,6 +44,8 @@ public class AddElement extends AbstractCommand{
                     communicationControl.chooseStatus(), communicationControl.setPerson()));
         }catch (WrongArgumentsException e){
             Console.err(e.getMessage());
+        } catch (InputException e) {
+            Console.err("Некорректный данные в скрипте!");
         }
     }
 

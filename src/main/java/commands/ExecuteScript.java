@@ -1,5 +1,6 @@
 /**
- * The commands package contains classes that represent specific commands that can be executed on the collection of objects.
+
+ The ExecuteScript class represents a command to execute a script file.
  */
 
 package commands;
@@ -14,37 +15,30 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Scanner;
 
-/**
- * The ExecuteScript class extends the AbstractCommand class and represents a command that executes a script.
- * <p>
- * It takes two objects as parameters - CollectionControl and CommunicationControl - to access the collection of objects and change the scanner used for user input.
- * <p>
- * It inherits the command name and description from the parent class.
- */
+
 public class ExecuteScript extends AbstractCommand {
     CollectionControl collectionControl;
     CommunicationControl communicationControl;
 
-    /**
-     * Constructor for ExecuteScript class.
-     *
-     * @param collectionControl    An object of the CollectionControl class, which is used to access the collection of objects.
-     * @param communicationControl An object of the CommunicationControl class, which is used to change the scanner used for user input.
-     */
 
+    /**
+     * Constructs a new ExecuteScript instance with the specified collection and communication controls.
+     *
+     * @param collectionControl the collection control instance
+     * @param communicationControl the communication control instance
+     */
     public ExecuteScript(CollectionControl collectionControl, CommunicationControl communicationControl) {
         super("execute_script", "выполняет скрипт");
         this.collectionControl = collectionControl;
         this.communicationControl = communicationControl;
     }
 
-    /**
-     * Executes the command to run a script.
-     *
-     * @param argument The argument for the command (the path to the script file).
-     * @throws WrongArgumentsException if the argument is empty.
-     */
 
+    /**
+     * Executes the command with the specified argument.
+     *
+     * @param argument the argument for the command
+     */
     @Override
     public void execute(String argument) {
 
@@ -55,34 +49,42 @@ public class ExecuteScript extends AbstractCommand {
             File fileData = new File("outputData.txt");
             File fileCommands = new File("outputCommands.txt");
             InputStream fileIn = Files.newInputStream(fileData.toPath());
-
             Scanner scanner = new Scanner(fileCommands);
+            communicationControl.setUnsetLoop();
+
 
             try {
+
                 // Заменяем стандартный поток ввода на InputStream из файла
                 communicationControl.changeScanner(fileIn);
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine().trim();
                     String[] args = (line.trim() + " ").split(" ");
                     HashMap<String, Command> commandMap = collectionControl.sendCommandMap();
-                    if (commandMap.containsKey(args[0].trim())) {
-                        String argumentForExecute;
-                        if (args.length == 2) {
-                            argumentForExecute = args[1];
-                        } else {
-                            argumentForExecute = "";
+                    for (String key : commandMap.keySet()) {
+                        if (key.equalsIgnoreCase(args[0].trim())) {
+                            String argumentForExecute;
+                            if (args.length == 2) {
+                                argumentForExecute = args[1];
+                            } else {
+                                argumentForExecute = "";
+                            }
+
+                            commandMap.get(key).execute(argumentForExecute);
+
                         }
-                        commandMap.get(args[0]).execute(argumentForExecute);
                     }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
                 // Восстанавливаем стандартный поток ввода
+                communicationControl.setUnsetLoop();
                 communicationControl.changeScanner(System.in);
                 // Закрываем InputStream из файла
                 try {
                     fileIn.close();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -97,11 +99,9 @@ public class ExecuteScript extends AbstractCommand {
     }
 
     /**
-     * Processes the script file and separates the lines that contain command arguments from the lines that do not.
-     * <p>
-     * Writes the command arguments to a separate file, and writes the lines without command arguments to another file.
+     * Processes the script file and writes the commands to a file.
      *
-     * @param file The path to the script file.
+     * @param file the script file to process
      */
     private void fileProcessor(String file) {
         String outputDataName = "outputData.txt";
@@ -122,7 +122,6 @@ public class ExecuteScript extends AbstractCommand {
                     fosCommand.write((args[0] + args[1] + "\n").getBytes());
                 }
             }
-
 
         } catch (IOException e) {
             Console.writeln("Файла не найдено");

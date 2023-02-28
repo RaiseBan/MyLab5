@@ -1,3 +1,7 @@
+/**
+ * The CommunicationControl class provides methods for communicating with the user through the console.
+ * It allows setting and getting user's personal information, such as name, height and passport ID.
+ */
 package support;
 
 import data.*;
@@ -10,35 +14,33 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
 import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-/**
- * The `CommunicationControl` class is responsible for managing communication with the user, taking user input, and setting the values of various attributes.
- */
-public class CommunicationControl {
 
-    private boolean sriptMode = false;
+public class CommunicationControl {
     public Scanner scanner;
+    private boolean loop = true;
+    private static boolean flagForScr = false;
 
     /**
-     * Constructs a new `CommunicationControl` object with a specified `Scanner` for user input.
+     * Constructs a new CommunicationControl object with the given scanner.
      *
-     * @param scanner the `Scanner` to use for user input
+     * @param scanner the scanner object to be used for reading input from the console
      */
+
     public CommunicationControl(Scanner scanner) {
         this.scanner = scanner;
     }
 
 
     /**
-     * Returns true if the given string contains only digits or letters.
+     * Checks if the given string contains only digits or letters.
      *
-     * @param str        the string to check
-     * @param onlyDigits true if the string should contain only digits; false if it should contain only letters
-     * @return true if the string contains only digits or letters; false otherwise
+     * @param str the string to be checked
+     * @param onlyDigits true if the string should contain only digits, false otherwise
+     * @return true if the string contains only digits or letters, false otherwise
      */
     public static boolean containsOnlyDigitsOrLetters(String str, boolean onlyDigits) {
         if (str == null || str.isEmpty()) {
@@ -47,16 +49,31 @@ public class CommunicationControl {
         String regex = onlyDigits ? "^\\d+$" : "^[a-zA-Z]+$";
         return str.matches(regex);
     }
-    public void changeScanner(InputStream inputStream){
-        this.scanner = new Scanner(inputStream);
+
+    /**
+     * Sets the value of the loop flag to the opposite of its current value.
+     */
+    public void setUnsetLoop() {
+        this.loop = !this.loop;
     }
 
     /**
-     * Prompts the user to enter a name, validates the input, and returns the name as a string.
+     * Changes the scanner object to read input from the given input stream.
      *
-     * @return the name entered by the user
+     * @param inputStream the input stream to be used for reading input from the console
      */
-    public String setName() {
+    public void changeScanner(InputStream inputStream) {
+        this.scanner = new Scanner(inputStream);
+    }
+
+
+    /**
+     * Prompts the user to enter their name and returns it.
+     *
+     * @return the user's name as a string
+     * @throws InputException if the user enters an invalid name or if the loop flag is set to false
+     */
+    public String setName() throws InputException {
         String name;
         while (true) {
             try {
@@ -64,43 +81,60 @@ public class CommunicationControl {
                 name = scanner.nextLine().trim();
                 if (name.equals("")) throw new EmptyInputException("имя не может быть пустым");
                 if (!containsOnlyDigitsOrLetters(name, false)) throw new InputException();
+                System.out.println(name);
+                flagForScr = true;
                 return name;
             } catch (EmptyInputException | InputException e) {
                 Console.err("Имя не корректно!");
+            } finally {
+                if ((!loop) && (!flagForScr)) {
+                    throw new InputException();
+
+                }
+                flagForScr = false;
             }
         }
 
     }
 
     /**
-     * Prompts the user to enter a height, validates the input, and returns the height as a long.
+     * Prompts the user to enter their height and returns it.
      *
-     * @return the height entered by the user
+     * @return the user's height as a long
+     * @throws InputException if the user enters an invalid height or if the loop flag is set to false
      */
-    private long setHeight() {
+
+    private long setHeight() throws InputException {
         while (true) {
             try {
                 System.out.print("Введите рост: ");
                 String line = scanner.nextLine();
                 long height = Long.parseLong(line);
-                if ((height <= 0) || (height >400) ) {
+                if ((height <= 0) || (height > 400)) {
                     throw new WrongArgumentsException("Высота не может быть меньше или равна нулю");
                 }
+                flagForScr = true;
                 return height;
             } catch (Exception e) {
                 System.out.println("Некорректный ввод. Попробуйте еще раз.");
+            } finally {
+                if ((!loop) && (!flagForScr)) {
+                    throw new InputException();
+
+                }
+                flagForScr = false;
             }
         }
     }
 
     /**
-     * Prompts the user to enter their passport ID and validates the input.
-     *
-     * @return The passport ID entered by the user.
-     * @throws EmptyInputException     If the user enters an empty string.
-     * @throws WrongArgumentsException If the user enters a non-numeric string.
+
+     Private method for setting the passport ID of a Person object.
+     @throws InputException if the input is invalid or empty.
+     @return String containing the passport ID of the person.
      */
-    private String setPassportID() {
+
+    private String setPassportID() throws InputException {
         while (true) {
             try {
                 System.out.print("Введите номер паспорта: ");
@@ -111,20 +145,28 @@ public class CommunicationControl {
                 if ((!passportID.matches("\\d+") || (passportID.length() != 6))) {
                     throw new WrongArgumentsException("Номер паспорта должен содержать только цифры(6 цифр)");
                 }
+                flagForScr = true;
                 return passportID;
             } catch (Exception e) {
                 System.out.println("Некорректный ввод. Попробуйте еще раз.");
+            } finally {
+                if ((!loop) && (!flagForScr)) {
+                    throw new InputException();
+
+                }
+                flagForScr = false;
             }
         }
     }
 
     /**
-     * Prompts the user to enter their date of birth and validates the input.
-     *
-     * @return The date of birth entered by the user.
-     * @throws WrongArgumentsException If the user enters a date that is in the future.
+
+     Private method for setting the birthday of a Person object.
+     @throws InputException if the input is invalid or empty.
+     @return LocalDateTime object containing the birth date of the person.
      */
-    private LocalDateTime setBirthday() {
+
+    private LocalDateTime setBirthday() throws InputException {
         while (true) {
             try {
                 System.out.print("Введите дату рождения в формате ГГГГ-ММ-ДД: ");
@@ -133,43 +175,49 @@ public class CommunicationControl {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", new Locale("ru", "Ru"));
                 LocalDateTime bd = LocalDate.parse(birthdayStr, formatter).atStartOfDay();
                 if (bd.isAfter(LocalDate.now().atStartOfDay())) throw new WrongArgumentsException();
+                flagForScr = true;
                 return bd;
-            }catch (WrongArgumentsException e){
+            } catch (WrongArgumentsException e) {
                 Console.err(e.getMessage());
-            }catch (DateTimeParseException e){
+            } catch (DateTimeParseException e) {
                 Console.err("неверный формат даты!");
             } catch (Exception e) {
                 System.out.println("Некорректный ввод. Попробуйте еще раз.");
+            } finally {
+                if ((!loop) && (!flagForScr)) {
+                    throw new InputException();
+
+                }
+                flagForScr = false;
             }
         }
     }
 
     /**
-     * Prompts the user to enter the details of a person and creates a Person object.
-     *
-     * @return A Person object with the details entered by the user.
-     * @throws IllegalArgumentException If the user enters invalid data for any field.
+
+     Public method for setting the information of a Person object.
+     @throws InputException if the input is invalid or empty.
+     @return Person object containing the information of a person.
      */
-    public Person setPerson() {
+
+    public Person setPerson() throws InputException {
         try {
             LocalDateTime bDay = setBirthday();
             long height = setHeight();
             String passportID = setPassportID();
             return new Person(bDay, height, passportID, setLocation());
         } catch (Exception e) {
-            Console.err("Проверьте корректность данных");
-            return null;
+            throw new InputException();
         }
     }
 
     /**
-     * Prompts the user to enter the X coordinate of a location and validates the input.
-     *
-     * @return The X coordinate entered by the user.
-     * @throws EmptyInputException   If the user enters an empty string.
-     * @throws NumberFormatException If the user enters a non-integer string.
+
+     Public method for setting the X-coordinate of a Location object.
+     @throws InputException if the input is invalid or empty.
+     @return Integer containing the X-coordinate of the location.
      */
-    public Integer setCoodrinateX() {
+    public Integer setCoodrinateX() throws InputException {
         int coordX;
         String line;
         while (true) {
@@ -178,25 +226,31 @@ public class CommunicationControl {
                 line = scanner.nextLine().trim();
                 if (line.equals("")) throw new EmptyInputException("не может быть пустым");
                 coordX = Integer.parseInt(line);
-                break;
+                flagForScr = true;
+                return coordX;
             } catch (EmptyInputException e) {
                 Console.err(e.getMessage());
             } catch (NumberFormatException e) {
                 Console.err("должно быть числом а еще и целым !!!");
+            } finally {
+                if ((!loop) && (!flagForScr)) {
+                    throw new InputException();
+
+                }
+                flagForScr = false;
             }
 
         }
-        return coordX;
+
     }
 
     /**
-     * Prompts the user to enter the Y coordinate of a location and validates the input.
+     * Reads and validates the user input for the Y-coordinate
      *
-     * @return The Y coordinate entered by the user.
-     * @throws EmptyInputException   If the user enters an empty string.
-     * @throws NumberFormatException If the user enters a non-integer string.
+     * @return an Integer representing the Y-coordinate entered by the user
+     * @throws InputException if the input is not valid or empty
      */
-    public Integer setCoodrinateY() {
+    public Integer setCoodrinateY() throws InputException {
         Integer coordY;
         String line;
         while (true) {
@@ -205,23 +259,29 @@ public class CommunicationControl {
                 line = scanner.nextLine().trim();
                 if (line.equals("")) throw new EmptyInputException();
                 coordY = Integer.parseInt(line);
-                break;
+                flagForScr = true;
+                return coordY;
             } catch (Exception e) {
                 Console.err("некорректные данные, попробуйте еще раз");
+            } finally {
+                if ((!loop) && (!flagForScr)) {
+                    throw new InputException();
+
+                }
+                flagForScr = false;
             }
 
         }
-        return coordY;
+
     }
 
     /**
-     * Prompts the user to enter a salary and validates the input.
+     * Reads and validates the user input for the salary
      *
-     * @return The salary entered by the user.
-     * @throws EmptyInputException   If the user enters an empty string.
-     * @throws NumberFormatException If the user enters a non-numeric string.
+     * @return a Double representing the salary entered by the user
+     * @throws InputException if the input is not valid or empty
      */
-    public Double setSalary() {
+    public Double setSalary() throws InputException {
         String line;
         double salary;
         while (true) {
@@ -230,35 +290,54 @@ public class CommunicationControl {
                 line = scanner.nextLine().trim();
                 if (line.equals("")) throw new EmptyInputException();
                 salary = Double.parseDouble(line);
-                break;
-            } catch (Exception e) {
-                Console.err("некорректные данные, попробуйте еще раз");
+                if (salary <= 0) throw new InputException();
+                flagForScr = true;
+                return salary;
+            } catch (EmptyInputException e) {
+                Console.err("вы ввели пустое значение!");
+            } catch (InputException e) {
+                Console.err("зарплата должна быть больше 0");
+            } finally {
+                if ((!loop) && (!flagForScr)) {
+                    throw new InputException();
+
+                }
+                flagForScr = false;
             }
 
         }
-        return salary;
+
     }
 
     /**
-     * Prompts the user to input coordinates and returns an instance of the Coordinates class.
+     * Reads and validates the user input for the coordinates
      *
-     * @return an instance of the Coordinates class representing the user's inputted coordinates.
+     * @return a Coordinates object representing the coordinates entered by the user
+     * @throws InputException if the input is not valid or empty
      */
-    public Coordinates setCoordinates() {
-        Integer x;
-        int y;
-        x = setCoodrinateX();
-        y = setCoodrinateY();
+    public Coordinates setCoordinates() throws InputException {
+        try {
+            Integer x;
+            int y;
+            x = setCoodrinateX();
+            y = setCoodrinateY();
 
-        return new Coordinates(x, y);
+            return new Coordinates(x, y);
+        } catch (InputException e) {
+            throw new InputException();
+
+        }
+
     }
 
     /**
-     * Prompts the user to input location information and returns an instance of the Location class.
+     * Reads and validates the user input for the location
      *
-     * @return an instance of the Location class representing the user's inputted location information.
+     * @return a Location object representing the location entered by the user
+     * @throws InputException if the input is not valid or empty
      */
-    public Location setLocation() {
+
+    public Location setLocation() throws InputException {
         String name;
         String line;
         float x;
@@ -286,22 +365,29 @@ public class CommunicationControl {
                 Console.writeln("Название локации: ");
                 name = scanner.nextLine().trim();
                 if (name.equals("")) throw new EmptyInputException();
-
-                return new Location(x,y,z,name);
+                flagForScr = true;
+                return new Location(x, y, z, name);
             } catch (EmptyInputException e) {
                 //err - ввели пустоту
             } catch (NumberFormatException e) {
                 //Console.err должно быть числом !!1
+            } finally {
+                if ((!loop) && (!flagForScr)) {
+                    throw new InputException();
+
+                }
+                flagForScr = false;
             }
         }
     }
 
     /**
-     * Prompts the user to choose a position and returns the selected Position enum.
+     * Reads and validates the user input for the position
      *
-     * @return a Position enum representing the user's selected position.
+     * @return a Position enum representing the position entered by the user
+     * @throws InputException if the input is not valid or empty
      */
-    public Position choosePosition() {
+    public Position choosePosition() throws InputException {
         Position position;
         String setPos;
         while (true) {
@@ -311,22 +397,30 @@ public class CommunicationControl {
                 Console.writeln("выбирайте");
                 setPos = scanner.nextLine().trim();
                 position = Position.valueOf(setPos.toUpperCase());
-                break;
+                flagForScr = true;
+                return position;
             } catch (Exception e) {
                 Console.err("неверные данные");
+            } finally {
+                if ((!loop) && (!flagForScr)) {
+                    throw new InputException();
+
+                }
+                flagForScr = false;
             }
         }
 
 
-        return position;
     }
 
     /**
-     * Prompts the user to choose a status and returns the selected Status enum.
+     * Reads and validates the user input for the status
      *
-     * @return a Status enum representing the user's selected status.
+     * @return a Status enum representing the status entered by the user
+     * @throws InputException if the input is not valid or empty
      */
-    public Status chooseStatus() {
+
+    public Status chooseStatus() throws InputException {
         Status status;
         String setStat;
         while (true) {
@@ -336,34 +430,44 @@ public class CommunicationControl {
                 Console.writeln("какую штуку выберите");
                 setStat = scanner.nextLine().trim();
                 status = Status.valueOf(setStat.toUpperCase());
-                break;
+                flagForScr = true;
+                return status;
             } catch (NoSuchElementException e) {
                 Console.err("нет такого элемента");
-            }catch (Exception e){
+            } catch (Exception e) {
                 Console.err("ошибка данных");
+            } finally {
+                if ((!loop) && (!flagForScr)) {
+                    throw new InputException();
+
+                }
+                flagForScr = false;
             }
         }
-        return status;
     }
 
     /**
-     * Prompts the user to confirm a choice and returns a boolean indicating whether the user confirmed.
+     * Asks the user to confirm a choice
      *
-     * @return a boolean indicating whether the user confirmed the choice.
+     * @return true if the user confirms, false otherwise
      */
     public boolean confirm() {
-        String line;
-        Console.writeln("y/n");
-        line = scanner.nextLine().trim();
-        return line.equals("y");
+        if (loop) {
+            String line;
+            Console.writeln("y/n");
+            line = scanner.nextLine().trim();
+            return line.equals("y");
+        } else {
+            return true;
+        }
     }
 
-    /**
-     * Prompts the user to input any additional information and returns the user's input as a String.
-     *
-     * @return a String representing any additional information inputted by the user.
-     */
 
+    /**
+     * Reads and returns additional information entered by the user
+     *
+     * @return a String representing the additional information entered by the user
+     */
     public String setEnotherInfo() {
         String line;
         line = scanner.nextLine().trim();

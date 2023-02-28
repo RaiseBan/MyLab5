@@ -1,29 +1,26 @@
 /**
- * The AddElementIfMin class represents the command to add a new worker element to the collection if
- * it has the smallest salary in the collection.
+
+ The {@code AddElementIfMin} class represents a command that adds a new worker element to the collection if its salary
+ is less than the salary of all the elements in the collection.
+ The command requires the communicationControl and collectionControl instances to communicate with the user
+ and modify the collection.
+ Extends {@code AbstractCommand} abstract class.
  */
 package commands;
 
 import data.Worker;
+import exceptions.InputException;
 import exceptions.WrongArgumentsException;
 import support.CollectionControl;
 import support.CommunicationControl;
 import support.Console;
 
 public class AddElementIfMin extends AbstractCommand{
-    /**
-     * CollectionControl object for performing operations on the collection.
-     */
+
     CollectionControl collectionControl;
-    /**
-     * CommunicationControl object for handling user input/output.
-     */
+
     CommunicationControl communicationControl;
-    /**
-     * Constructs the AddElementIfMin command with the given CollectionControl and CommunicationControl objects.
-     * @param collectionControl CollectionControl object for performing operations on the collection.
-     * @param communicationControl CommunicationControl object for handling user input/output.
-     */
+
 
     public AddElementIfMin(CollectionControl collectionControl, CommunicationControl communicationControl) {
         super("add_if_min", "Добавить новым элемент в коллекцю, если меньше" +
@@ -31,10 +28,12 @@ public class AddElementIfMin extends AbstractCommand{
         this.collectionControl = collectionControl;
         this.communicationControl = communicationControl;
     }
+
     /**
-     * Executes the AddElementIfMin command by prompting the user to create a new worker element and adding
-     * it to the collection if it has the smallest salary in the collection.
-     * @param argument the command argument string
+     * Executes the command to add a new worker element to the collection if its salary is less than the salary
+     * of all the elements in the collection.
+     *
+     * @param argument the arguments passed to the command, not used in this case.
      */
     public void execute(String argument){
         try {
@@ -47,6 +46,8 @@ public class AddElementIfMin extends AbstractCommand{
             if (!collectionControl.addIfSmallerSalary(newWorker)) newWorker = null;
         }catch (WrongArgumentsException e){
             Console.err("Превышенно кол-во аргементов");
+        } catch (InputException e) {
+            Console.err("Некорректный данные в скрипте!");
         }
     }
 }
