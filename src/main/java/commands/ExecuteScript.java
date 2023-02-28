@@ -8,9 +8,7 @@ import exceptions.EmptyInputException;
 import exceptions.WrongArgumentsException;
 import support.*;
 import support.Console;
-
 import java.io.*;
-import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -47,12 +45,12 @@ public class ExecuteScript extends AbstractCommand {
             fileProcessor(argument);
             File fileData = new File("outputData.txt");
             File fileCommands = new File("outputCommands.txt");
-            InputStream fileIn = Files.newInputStream(fileData.toPath());
+            FileInputStream fileIn = new FileInputStream(fileData);
             Scanner scanner = new Scanner(fileCommands);
             communicationControl.setUnsetLoop();
 
 
-            try {
+            try (fileIn) {
 
                 // Заменяем стандартный поток ввода на InputStream из файла
                 communicationControl.changeScanner(fileIn);
@@ -61,7 +59,7 @@ public class ExecuteScript extends AbstractCommand {
                     String[] args = (line.trim() + " ").split(" ");
                     HashMap<String, Command> commandMap = collectionControl.sendCommandMap();
                     for (String key : commandMap.keySet()) {
-                        if ((key.equalsIgnoreCase(args[0].trim())) &&(!key.equalsIgnoreCase("execute_script"))) {
+                        if ((key.equalsIgnoreCase(args[0].trim())) && (!key.equalsIgnoreCase("execute_script"))) {
                             String argumentForExecute;
                             if (args.length == 2) {
                                 argumentForExecute = args[1];
@@ -83,12 +81,6 @@ public class ExecuteScript extends AbstractCommand {
                 // Закрываем InputStream из файла
                 fileCommands.delete();
                 fileData.delete();
-                try {
-                    fileIn.close();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }
 
         } catch (WrongArgumentsException e) {
@@ -109,9 +101,8 @@ public class ExecuteScript extends AbstractCommand {
         String outputCommandsName = "outputCommands.txt";
 
         try (Scanner scanner = new Scanner(new File(file));
-             FileOutputStream fosData = new FileOutputStream(outputDataName)) {
-            FileOutputStream fosCommand = new FileOutputStream(outputCommandsName);
-
+             FileOutputStream fosData = new FileOutputStream(outputDataName);
+             FileOutputStream fosCommand = new FileOutputStream(outputCommandsName)) {
             while (scanner.hasNextLine()) {
                 String[] args;
                 String line = scanner.nextLine();
