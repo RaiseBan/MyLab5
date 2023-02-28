@@ -226,10 +226,13 @@ public class CommunicationControl {
                 line = scanner.nextLine().trim();
                 if (line.equals("")) throw new EmptyInputException("не может быть пустым");
                 coordX = Integer.parseInt(line);
+                if (coordX > 468) throw new InputException();
                 flagForScr = true;
                 return coordX;
             } catch (EmptyInputException e) {
                 Console.err(e.getMessage());
+            }catch (InputException e){
+                Console.err("превышенно значение (max: 468)");
             } catch (NumberFormatException e) {
                 Console.err("должно быть числом а еще и целым !!!");
             } finally {
@@ -259,10 +262,13 @@ public class CommunicationControl {
                 line = scanner.nextLine().trim();
                 if (line.equals("")) throw new EmptyInputException();
                 coordY = Integer.parseInt(line);
+                if (coordY <= -922) throw new InputException();
                 flagForScr = true;
                 return coordY;
-            } catch (Exception e) {
+            } catch (EmptyInputException e) {
                 Console.err("некорректные данные, попробуйте еще раз");
+            }catch (InputException e){
+                Console.err("превышенно значение (max: 468)");
             } finally {
                 if ((!loop) && (!flagForScr)) {
                     throw new InputException();
