@@ -24,7 +24,7 @@ public class RemoveGreater extends AbstractCommand {
      * @param communicationControl The CommunicationControl instance to use for user interaction.
      */
     public RemoveGreater(CollectionControl collectionControl, CommunicationControl communicationControl) {
-        super("remove_greater", "Remove all elements from the collection that are greater than the specified element");
+        super("remove_greater", "Удалить из коллекции все элементы, превышающие заданный");
         this.collectionControl = collectionControl;
         this.communicationControl = communicationControl;
     }
