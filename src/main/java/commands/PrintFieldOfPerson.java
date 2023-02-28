@@ -1,9 +1,9 @@
 package commands;
 
-        import data.Person;
-        import exceptions.WrongArgumentsException;
-        import support.CollectionControl;
-        import support.Console;
+import data.Person;
+import exceptions.WrongArgumentsException;
+import support.CollectionControl;
+import support.Console;
 
 /**
  * Command to print the Person data in ascending order by their name.
@@ -13,6 +13,7 @@ public class PrintFieldOfPerson extends AbstractCommand {
 
     /**
      * Constructor to create a new PrintFieldOfPerson object.
+     *
      * @param collectionControl the CollectionControl object to be used
      */
     public PrintFieldOfPerson(CollectionControl collectionControl) {
@@ -22,6 +23,7 @@ public class PrintFieldOfPerson extends AbstractCommand {
 
     /**
      * Executes the PrintFieldOfPerson command to print the Person data in ascending order by name.
+     *
      * @param argument the arguments passed to the command
      */
     @Override

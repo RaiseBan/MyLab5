@@ -10,16 +10,6 @@ import java.util.HashMap;
 
 public class CommandControl {
     private final HashMap<String, Command> commandMapping = new HashMap<>();
-    private Command help;
-    private Command info;
-    private Command printFieldOfPerson;
-    private Command removeElementByID;
-    private Command removeGreater;
-    private Command saveCollection;
-    private Command show;
-    private Command sort;
-    private Command updateByID;
-    private CollectionControl collectionControl;
 
     /**
      * Constructs a {@code CommandControl} object with the given commands and {@code CollectionControl} object.
@@ -48,15 +38,6 @@ public class CommandControl {
                           Command groupByStatus, Command help, Command info, Command printFieldOfPerson,
                           Command removeElementByID, Command removeGreater,
                           Command saveCollection, Command show, Command sort, Command updateByID, CollectionControl collectionControl) {
-        this.help = help;
-        this.info = info;
-        this.printFieldOfPerson = printFieldOfPerson;
-        this.removeElementByID = removeElementByID;
-        this.removeGreater = removeGreater;
-        this.saveCollection = saveCollection;
-        this.show = show;
-        this.sort = sort;
-        this.updateByID = updateByID;
         commandMapping.put(addElement.getName(), addElement);
         commandMapping.put(addElementIfMin.getName(), addElementIfMin);
         commandMapping.put(clear.getName(), clear);
@@ -64,17 +45,16 @@ public class CommandControl {
         commandMapping.put(exit.getName(), exit);
         commandMapping.put(filterGreaterStatus.getName(), filterGreaterStatus);
         commandMapping.put(groupByStatus.getName(), groupByStatus);
-        commandMapping.put(this.help.getName(), this.help);
-        commandMapping.put(this.info.getName(), this.info);
-        commandMapping.put(this.printFieldOfPerson.getName(), this.printFieldOfPerson);
-        commandMapping.put(this.removeElementByID.getName(), this.removeElementByID);
-        commandMapping.put(this.removeGreater.getName(), this.removeGreater);
-        commandMapping.put(this.show.getName(), this.show);
-        commandMapping.put(this.sort.getName(), this.sort);
-        commandMapping.put(this.updateByID.getName(), this.updateByID);
-        commandMapping.put(this.saveCollection.getName(), this.saveCollection);
-        this.collectionControl = collectionControl;
-        this.collectionControl.getMappingOfCommands(commandMapping);
+        commandMapping.put(help.getName(), help);
+        commandMapping.put(info.getName(), info);
+        commandMapping.put(printFieldOfPerson.getName(), printFieldOfPerson);
+        commandMapping.put(removeElementByID.getName(), removeElementByID);
+        commandMapping.put(removeGreater.getName(), removeGreater);
+        commandMapping.put(show.getName(), show);
+        commandMapping.put(sort.getName(), sort);
+        commandMapping.put(updateByID.getName(), updateByID);
+        commandMapping.put(saveCollection.getName(), saveCollection);
+        collectionControl.getMappingOfCommands(commandMapping);
     }
 
     /**

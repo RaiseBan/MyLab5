@@ -38,7 +38,7 @@ public class CommunicationControl {
     /**
      * Checks if the given string contains only digits or letters.
      *
-     * @param str the string to be checked
+     * @param str        the string to be checked
      * @param onlyDigits true if the string should contain only digits, false otherwise
      * @return true if the string contains only digits or letters, false otherwise
      */
@@ -128,10 +128,10 @@ public class CommunicationControl {
     }
 
     /**
-
-     Private method for setting the passport ID of a Person object.
-     @throws InputException if the input is invalid or empty.
-     @return String containing the passport ID of the person.
+     * Private method for setting the passport ID of a Person object.
+     *
+     * @return String containing the passport ID of the person.
+     * @throws InputException if the input is invalid or empty.
      */
 
     private String setPassportID() throws InputException {
@@ -160,10 +160,10 @@ public class CommunicationControl {
     }
 
     /**
-
-     Private method for setting the birthday of a Person object.
-     @throws InputException if the input is invalid or empty.
-     @return LocalDateTime object containing the birth date of the person.
+     * Private method for setting the birthday of a Person object.
+     *
+     * @return LocalDateTime object containing the birth date of the person.
+     * @throws InputException if the input is invalid or empty.
      */
 
     private LocalDateTime setBirthday() throws InputException {
@@ -194,10 +194,10 @@ public class CommunicationControl {
     }
 
     /**
-
-     Public method for setting the information of a Person object.
-     @throws InputException if the input is invalid or empty.
-     @return Person object containing the information of a person.
+     * Public method for setting the information of a Person object.
+     *
+     * @return Person object containing the information of a person.
+     * @throws InputException if the input is invalid or empty.
      */
 
     public Person setPerson() throws InputException {
@@ -212,10 +212,10 @@ public class CommunicationControl {
     }
 
     /**
-
-     Public method for setting the X-coordinate of a Location object.
-     @throws InputException if the input is invalid or empty.
-     @return Integer containing the X-coordinate of the location.
+     * Public method for setting the X-coordinate of a Location object.
+     *
+     * @return Integer containing the X-coordinate of the location.
+     * @throws InputException if the input is invalid or empty.
      */
     public Integer setCoodrinateX() throws InputException {
         int coordX;
@@ -231,7 +231,7 @@ public class CommunicationControl {
                 return coordX;
             } catch (EmptyInputException e) {
                 Console.err(e.getMessage());
-            }catch (InputException e){
+            } catch (InputException e) {
                 Console.err("превышенно значение (max: 468)");
             } catch (NumberFormatException e) {
                 Console.err("должно быть числом а еще и целым !!!");
@@ -267,7 +267,7 @@ public class CommunicationControl {
                 return coordY;
             } catch (EmptyInputException e) {
                 Console.err("некорректные данные, попробуйте еще раз");
-            }catch (InputException e){
+            } catch (InputException e) {
                 Console.err("превышенно значение (max: 468)");
             } finally {
                 if ((!loop) && (!flagForScr)) {

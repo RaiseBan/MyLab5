@@ -1,6 +1,6 @@
 package commands;
 
-        import support.CollectionControl;
+import support.CollectionControl;
 
 /**
  * The Sort class represents a command to sort the collection in natural order.

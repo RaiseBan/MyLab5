@@ -1,10 +1,9 @@
 /**
-
- The {@code AddElementIfMin} class represents a command that adds a new worker element to the collection if its salary
- is less than the salary of all the elements in the collection.
- The command requires the communicationControl and collectionControl instances to communicate with the user
- and modify the collection.
- Extends {@code AbstractCommand} abstract class.
+ * The {@code AddElementIfMin} class represents a command that adds a new worker element to the collection if its salary
+ * is less than the salary of all the elements in the collection.
+ * The command requires the communicationControl and collectionControl instances to communicate with the user
+ * and modify the collection.
+ * Extends {@code AbstractCommand} abstract class.
  */
 package commands;
 
@@ -15,7 +14,7 @@ import support.CollectionControl;
 import support.CommunicationControl;
 import support.Console;
 
-public class AddElementIfMin extends AbstractCommand{
+public class AddElementIfMin extends AbstractCommand {
 
     CollectionControl collectionControl;
 
@@ -35,7 +34,7 @@ public class AddElementIfMin extends AbstractCommand{
      *
      * @param argument the arguments passed to the command, not used in this case.
      */
-    public void execute(String argument){
+    public void execute(String argument) {
         try {
             if (!argument.isEmpty()) throw new WrongArgumentsException();
             Console.writeln("создайте новый элемент перед тем как сравнивать:");
@@ -44,7 +43,7 @@ public class AddElementIfMin extends AbstractCommand{
                     communicationControl.setSalary(), communicationControl.choosePosition(),
                     communicationControl.chooseStatus(), communicationControl.setPerson());
             if (!collectionControl.addIfSmallerSalary(newWorker)) newWorker = null;
-        }catch (WrongArgumentsException e){
+        } catch (WrongArgumentsException e) {
             Console.err("Превышенно кол-во аргементов");
         } catch (InputException e) {
             Console.err("Некорректный данные в скрипте!");

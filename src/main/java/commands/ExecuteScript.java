@@ -1,6 +1,5 @@
 /**
-
- The ExecuteScript class represents a command to execute a script file.
+ * The ExecuteScript class represents a command to execute a script file.
  */
 
 package commands;
@@ -24,7 +23,7 @@ public class ExecuteScript extends AbstractCommand {
     /**
      * Constructs a new ExecuteScript instance with the specified collection and communication controls.
      *
-     * @param collectionControl the collection control instance
+     * @param collectionControl    the collection control instance
      * @param communicationControl the communication control instance
      */
     public ExecuteScript(CollectionControl collectionControl, CommunicationControl communicationControl) {
@@ -62,7 +61,7 @@ public class ExecuteScript extends AbstractCommand {
                     String[] args = (line.trim() + " ").split(" ");
                     HashMap<String, Command> commandMap = collectionControl.sendCommandMap();
                     for (String key : commandMap.keySet()) {
-                        if (key.equalsIgnoreCase(args[0].trim())) {
+                        if ((key.equalsIgnoreCase(args[0].trim())) &&(!key.equalsIgnoreCase("execute_script"))) {
                             String argumentForExecute;
                             if (args.length == 2) {
                                 argumentForExecute = args[1];
@@ -82,6 +81,8 @@ public class ExecuteScript extends AbstractCommand {
                 communicationControl.setUnsetLoop();
                 communicationControl.changeScanner(System.in);
                 // Закрываем InputStream из файла
+                fileCommands.delete();
+                fileData.delete();
                 try {
                     fileIn.close();
 
@@ -113,13 +114,13 @@ public class ExecuteScript extends AbstractCommand {
 
             while (scanner.hasNextLine()) {
                 String[] args;
-                String line = scanner.nextLine().trim();
+                String line = scanner.nextLine();
                 args = (line.trim() + " ").split(" ", 2);
                 if (args.length == 0) throw new EmptyInputException();
                 if (!collectionControl.sendCommandMap().containsKey(args[0].trim())) {
                     fosData.write((line + "\n").getBytes());
                 } else {
-                    fosCommand.write((args[0] + args[1] + "\n").getBytes());
+                    fosCommand.write((args[0] + " " + args[1] + "\n").getBytes());
                 }
             }
 

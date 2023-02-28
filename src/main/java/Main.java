@@ -13,11 +13,11 @@ public class Main {
      */
 
     public static void main(String[] args) {
-        try(Scanner scanner = new Scanner(System.in)){
+        try (Scanner scanner = new Scanner(System.in)) {
             FileControl fileControl = new FileControl(args);
             CommunicationControl communicationControl = new CommunicationControl(scanner);
             CollectionControl collectionControl = new CollectionControl(fileControl, communicationControl);
-            CommandControl commandControl = new CommandControl(new AddElement(communicationControl,collectionControl),
+            CommandControl commandControl = new CommandControl(new AddElement(communicationControl, collectionControl),
                     new AddElementIfMin(collectionControl, communicationControl),
                     new Clear(collectionControl, communicationControl),
                     new ExecuteScript(collectionControl, communicationControl), new Exit(), new FilterGreaterStatus(collectionControl, communicationControl),

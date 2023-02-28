@@ -9,9 +9,10 @@ import support.CollectionControl;
 import support.Console;
 import support.FileControl;
 
-public class SaveCollection extends AbstractCommand{
+public class SaveCollection extends AbstractCommand {
     FileControl fileControl;
     CollectionControl collectionControl;
+
     /**
      * Constructs a new {@code Show} object with the specified {@link CollectionControl} object.
      *
@@ -29,7 +30,7 @@ public class SaveCollection extends AbstractCommand{
             if (argument.isEmpty()) throw new WrongArgumentsException();
             collectionControl.saveCollection(argument);
 
-        }catch (WrongArgumentsException e){
+        } catch (WrongArgumentsException e) {
             Console.err(e.getMessage());
         }
     }

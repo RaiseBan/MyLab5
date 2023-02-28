@@ -1,12 +1,11 @@
 /**
-
- The CollectionControl class manages a collection of Worker objects and provides methods for manipulating
- and accessing the data. It implements various operations such as sorting, filtering, grouping and updating
- the elements of the collection. It also interacts with the FileControl and CommunicationControl classes to
- read/write data from/to files and receive input from the user, respectively. The class has a HashMap to store
- the mapping of available commands, and a LocalDateTime variable to keep track of the time of initialization
- of the collection. The class has public methods for adding, removing and updating elements of the collection,
- as well as for displaying information about the collection.
+ * The CollectionControl class manages a collection of Worker objects and provides methods for manipulating
+ * and accessing the data. It implements various operations such as sorting, filtering, grouping and updating
+ * the elements of the collection. It also interacts with the FileControl and CommunicationControl classes to
+ * read/write data from/to files and receive input from the user, respectively. The class has a HashMap to store
+ * the mapping of available commands, and a LocalDateTime variable to keep track of the time of initialization
+ * of the collection. The class has public methods for adding, removing and updating elements of the collection,
+ * as well as for displaying information about the collection.
  */
 package support;
 
@@ -28,11 +27,12 @@ public class CollectionControl {
     protected static LocalDateTime timeInitialization = null;
     FileControl fileControl;
     CommunicationControl communicationControl;
+
     /**
      * Constructor for the CollectionControl class. It initializes the fileControl and communicationControl objects
      * and sets the BufferOfCommandMap to null.
      *
-     * @param fileControl the FileControl object to use for reading/writing data from/to files
+     * @param fileControl          the FileControl object to use for reading/writing data from/to files
      * @param communicationControl the CommunicationControl object to use for receiving input from the user
      */
 
@@ -41,6 +41,7 @@ public class CollectionControl {
         this.communicationControl = communicationControl;
         this.BufferOfCommandMap = null;
     }
+
     /**
      * Sets the BufferOfCommandMap to the specified HashMap.
      *
@@ -100,15 +101,13 @@ public class CollectionControl {
             throw new RuntimeException(e);
         }
     }
+
     /**
-
-     Filters workers with a status greater than the given string and returns an ArrayList of the filtered workers.
-
-     @param line the status to compare against.
-
-     @return an ArrayList of the filtered workers.
-
-     @throws IllegalArgumentException if the given string is not a valid status.
+     * Filters workers with a status greater than the given string and returns an ArrayList of the filtered workers.
+     *
+     * @param line the status to compare against.
+     * @return an ArrayList of the filtered workers.
+     * @throws IllegalArgumentException if the given string is not a valid status.
      */
 
     public ArrayList<Worker> filterGreaterThanStatus(String line) throws IllegalArgumentException {
@@ -129,47 +128,41 @@ public class CollectionControl {
     }
 
     /**
-
-     Groups the workers in the collection by their status and outputs the number of workers for each status.
+     * Groups the workers in the collection by their status and outputs the number of workers for each status.
      */
     public void gropByStatus() {
 
-        Map<Status, List<Worker>> workersByStatus = workersCollection.stream()
-                .collect(Collectors.groupingBy(Worker::getStatus));
+        Map<Status, List<Worker>> workersByStatus = workersCollection.stream().collect(Collectors.groupingBy(Worker::getStatus));
         for (Status status : workersByStatus.keySet()) {
             Console.writeln("Кол-во работников со статусом '" + status + "': " + workersByStatus.get(status).size());
         }
     }
 
     /**
-
-     Outputs information about the worker collection, including the type, time of initialization, and number of elements.
+     * Outputs information about the worker collection, including the type, time of initialization, and number of elements.
      */
     public void getInfo() {
-        Console.writeln("Тип: Worker" + "\n" +
-                "Время инициализации: " + timeInitialization + "\n" +
-                "количество элементов: " + workersCollection.size());
+        Console.writeln("Тип: Worker" + "\n" + "Время инициализации: " + timeInitialization + "\n" + "количество элементов: " + workersCollection.size());
 
     }
 
     /**
-
-     Sorts the workers in the collection by their person object and outputs the sorted list.
+     * Sorts the workers in the collection by their person object and outputs the sorted list.
      */
     public void sortPerson() {
         ArrayList<Person> sortedPerson = new ArrayList<>();
         for (Worker worker : workersCollection)
             sortedPerson.add(worker.getPerson());
         Collections.sort(sortedPerson);
-        for (Person person: sortedPerson){
+        for (Person person : sortedPerson) {
             Console.writeln(person.toString());
         }
     }
 
     /**
-
-     Removes the worker from the collection with the given ID.
-     @param id the ID of the worker to remove.
+     * Removes the worker from the collection with the given ID.
+     *
+     * @param id the ID of the worker to remove.
      */
     public void removeElementByID(int id) {
         try {
@@ -178,9 +171,9 @@ public class CollectionControl {
             Console.err("Элемента с такии id нет в коллекции");
         }
     }
-    /**
 
-     Outputs each worker in the collection using their toString method.
+    /**
+     * Outputs each worker in the collection using their toString method.
      */
 
     public void show() {
@@ -190,18 +183,19 @@ public class CollectionControl {
     }
 
     /**
-
-     Adds the given worker to the collection.
-     @param worker the worker to add to the collection.
+     * Adds the given worker to the collection.
+     *
+     * @param worker the worker to add to the collection.
      */
     public void addToCollection(Worker worker) {
         workersCollection.add(worker);
     }
-    /**
 
-     Adds the given worker to the collection if their salary is smaller than the minimum salary in the collection.
-     @param newWorker the worker to add to the collection.
-     @return true if the worker was added, false otherwise.
+    /**
+     * Adds the given worker to the collection if their salary is smaller than the minimum salary in the collection.
+     *
+     * @param newWorker the worker to add to the collection.
+     * @return true if the worker was added, false otherwise.
      */
 
     public boolean addIfSmallerSalary(Worker newWorker) {
@@ -213,17 +207,14 @@ public class CollectionControl {
     }
 
     /**
-
-     Updates the worker in the collection with the given ID.
-     @param id the ID of the worker to update.
+     * Updates the worker in the collection with the given ID.
+     *
+     * @param id the ID of the worker to update.
      */
     public void updateByID(int id) {
         try {
             if (id > workersCollection.size()) throw new InputException();
-            workersCollection.set(id - 1, new Worker(id, communicationControl.setName(),
-                    communicationControl.setCoordinates(), communicationControl.setSalary(),
-                    communicationControl.choosePosition(), communicationControl.chooseStatus(),
-                    communicationControl.setPerson()).setID(id));
+            workersCollection.set(id - 1, new Worker(id, communicationControl.setName(), communicationControl.setCoordinates(), communicationControl.setSalary(), communicationControl.choosePosition(), communicationControl.chooseStatus(), communicationControl.setPerson()).setID(id));
 
         } catch (InputException e) {
             Console.err("такого рабочего нет");
@@ -231,8 +222,7 @@ public class CollectionControl {
     }
 
     /**
-
-     Clear all id of elements in collection
+     * Clear all id of elements in collection
      */
     public void updateAllIDs() {
         for (int i = 0; i < workersCollection.size(); i++) {

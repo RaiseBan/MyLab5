@@ -4,12 +4,14 @@ import exceptions.WrongArgumentsException;
 import support.CollectionControl;
 import support.Console;
 
-public class Show extends AbstractCommand{
+public class Show extends AbstractCommand {
     CollectionControl collectionControl;
+
     public Show(CollectionControl collectionControl) {
         super("show", "вывести в стандартный поток вывода все элементы коллекции в строковом представлению");
         this.collectionControl = collectionControl;
     }
+
     /**
      * Executes the command.
      *
@@ -18,9 +20,9 @@ public class Show extends AbstractCommand{
     @Override
     public void execute(String argument) {
         try {
-            if(!argument.isEmpty()) throw new WrongArgumentsException();
+            if (!argument.isEmpty()) throw new WrongArgumentsException();
             this.collectionControl.show();
-        }catch (WrongArgumentsException e){
+        } catch (WrongArgumentsException e) {
             Console.err(e.getMessage());
         }
 

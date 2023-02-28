@@ -2,11 +2,10 @@ package commands;
 
 /**
  * An abstract class that implements the {@link Command} interface and provides
- * <p>
  * basic functionality for all commands.
  */
 
-public abstract class AbstractCommand implements  Command{
+public abstract class AbstractCommand implements Command {
     /**
      * The name of the command.
      */
@@ -23,7 +22,7 @@ public abstract class AbstractCommand implements  Command{
      * @param description the description of the command
      */
 
-    public AbstractCommand(String name, String description){
+    public AbstractCommand(String name, String description) {
         this.name = name;
         this.description = description;
 

@@ -1,10 +1,9 @@
 package data;
+
 /**
  * The Location class represents the location of a person or worker
  * /
- * public class Location {
- * /*
- * <p>
+ * public class Location
  * The x coordinate of the location
  */
 public class Location {

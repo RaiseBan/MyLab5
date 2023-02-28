@@ -1,7 +1,6 @@
 /**
-
- The {@code FilterGreaterStatus} class represents a command that filters the elements in the collection by the status field
- and displays those whose value is greater than the specified one.
+ * The {@code FilterGreaterStatus} class represents a command that filters the elements in the collection by the status field
+ * and displays those whose value is greater than the specified one.
  */
 package commands;
 
@@ -11,9 +10,10 @@ import support.CollectionControl;
 import support.CommunicationControl;
 import support.Console;
 
-public class FilterGreaterStatus extends AbstractCommand{
+public class FilterGreaterStatus extends AbstractCommand {
     CollectionControl collectionControl;
     CommunicationControl communicationControl;
+
     /**
      * Constructs a new {@code FilterGreaterStatus} object with the specified {@code CollectionControl} and {@code CommunicationControl}.
      * @param collectionControl the {@code CollectionControl} object to control the collection
@@ -26,6 +26,7 @@ public class FilterGreaterStatus extends AbstractCommand{
 
 
     }
+
     /**
      * Executes the command to filter the elements in the collection by the status field and displays those whose value is greater than the specified one.
      * @param argument the command argument (not used)
@@ -34,18 +35,18 @@ public class FilterGreaterStatus extends AbstractCommand{
     public void execute(String argument) {
         String line;
 
-            try {
-                if (!argument.isEmpty()) throw new WrongArgumentsException();
-                Console.writeln("Введите значение с которым вы хотите сравнивать");
-                line = communicationControl.setEnotherInfo();
+        try {
+            if (!argument.isEmpty()) throw new WrongArgumentsException();
+            Console.writeln("Введите значение с которым вы хотите сравнивать");
+            line = communicationControl.setEnotherInfo();
 
-                for (Worker worker : collectionControl.filterGreaterThanStatus(line)){
-                    Console.writeln(worker.toString());
-                }
-            }catch (IllegalArgumentException e){
-                Console.err("Не является элементом Status");
-            }catch (WrongArgumentsException e){
-                Console.err("Неверное кол-во аргементов...");
+            for (Worker worker : collectionControl.filterGreaterThanStatus(line)) {
+                Console.writeln(worker.toString());
             }
+        } catch (IllegalArgumentException e) {
+            Console.err("Не является элементом Status");
+        } catch (WrongArgumentsException e) {
+            Console.err("Неверное кол-во аргементов...");
+        }
     }
 }

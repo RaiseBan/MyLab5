@@ -1,9 +1,8 @@
 /**
-
- The {@code AddElement} class represents a command that adds a new worker element to the collection.
- The command requires instances of {@link CommunicationControl} and {@link CollectionControl} to communicate with the user
- and modify the collection, respectively.
- This class extends the {@link AbstractCommand} abstract class.
+ * The {@code AddElement} class represents a command that adds a new worker element to the collection.
+ * The command requires instances of {@link CommunicationControl} and {@link CollectionControl} to communicate with the user
+ * and modify the collection, respectively.
+ * This class extends the {@link AbstractCommand} abstract class.
  */
 package commands;
 
@@ -14,11 +13,12 @@ import support.CollectionControl;
 import support.CommunicationControl;
 import support.Console;
 
-public class AddElement extends AbstractCommand{
+public class AddElement extends AbstractCommand {
 
     private CommunicationControl communicationControl;
 
     private CollectionControl collectionControl;
+
     /**
      * Constructs an {@code AddElement} object with the specified instances of {@link CommunicationControl} and {@link CollectionControl}.
      *
@@ -30,19 +30,20 @@ public class AddElement extends AbstractCommand{
         this.communicationControl = communicationControl;
         this.collectionControl = collectionControl;
     }
+
     /**
      * Executes the command by adding a new worker element to the collection.
      *
      * @param argument the command argument
      */
-    public void execute(String argument){
+    public void execute(String argument) {
         try {
             if (!argument.isEmpty()) throw new WrongArgumentsException();
             collectionControl.addToCollection(new Worker(communicationControl.setName(),
                     communicationControl.setCoordinates(),
                     communicationControl.setSalary(), communicationControl.choosePosition(),
                     communicationControl.chooseStatus(), communicationControl.setPerson()));
-        }catch (WrongArgumentsException e){
+        } catch (WrongArgumentsException e) {
             Console.err(e.getMessage());
         } catch (InputException e) {
             Console.err("Некорректный данные в скрипте!");

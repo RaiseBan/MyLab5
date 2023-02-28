@@ -1,8 +1,5 @@
 /**
  * The FileControl class provides methods to read and write files related to worker information
- *
- * @author support
- * @version 1.0
  */
 package support;
 
@@ -28,6 +25,7 @@ public class FileControl {
 
     /**
      * Constructor for FileControl
+     *
      * @param file an array of strings representing the file path
      */
 
@@ -36,22 +34,15 @@ public class FileControl {
         CollectionControl.timeInitialization = LocalDateTime.now();
     }
 
-//    /**
-//     * Writes worker information to a file
-//     * @param workersToSave an ArrayList of workers to write to a file
-//     */
-//    public void writeToFile(ArrayList<Worker> workersToSave) {
-//        try {
-//            FileOutputStream fos = new FileOutputStream("workers.txt");
-//            for (Worker worker : workersToSave) {
-//                byte[] bytes = worker.toString().getBytes();
-//                fos.write(bytes);
-//            }
-//            Console.writeln("Данные записаны в файл");
-//        } catch (IOException e) {
-//            Console.err("произошла ошибка");
-//        }
-//    }
+    /**
+     * Writes a list of workers to an XML file specified by the given path. The XML file will contain the name, coordinates,
+     * salary, position, status, and personal information (birthday, height, passportID, and location) of each worker.
+     *
+     * @param workers the list of workers to be written to the file
+     * @param file    the path of the file to be written
+     * @throws IOException        if an I/O error occurs while writing the file
+     * @throws XMLStreamException if an error occurs while writing the XML document
+     */
     public void writeToFile(ArrayList<Worker> workers, String file) throws IOException, XMLStreamException {
         try {
             file = file.trim() + "\\workers.xml".trim();
@@ -111,12 +102,14 @@ public class FileControl {
             writer.writeEndDocument();
             writer.flush();
             writer.close();
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             Console.err("сюда сохранить невозможно!");
         }
     }
+
     /**
      * Reads worker information from an XML file and returns a list of workers
+     *
      * @return a List of workers read from the XML file
      */
     public List<Worker> readXmlFile() {
@@ -145,6 +138,7 @@ public class FileControl {
 
     /**
      * Checks the permissions of the file specified by the argument
+     *
      * @param arg a string representing the file path to check the permissions of
      * @throws IOException if the file does not exist or does not have the necessary permissions
      */

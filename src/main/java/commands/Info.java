@@ -1,8 +1,8 @@
 package commands;
 
-        import exceptions.WrongArgumentsException;
-        import support.CollectionControl;
-        import support.Console;
+import exceptions.WrongArgumentsException;
+import support.CollectionControl;
+import support.Console;
 
 /**
  * Command to display information about the collection.
@@ -12,6 +12,7 @@ public class Info extends AbstractCommand {
 
     /**
      * Creates a new instance of Info command.
+     *
      * @param collectionControl the collection control object
      */
     public Info(CollectionControl collectionControl) {
@@ -21,6 +22,7 @@ public class Info extends AbstractCommand {
 
     /**
      * Executes the Info command.
+     *
      * @param argument the command argument (not used in this command)
      */
     @Override

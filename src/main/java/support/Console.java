@@ -21,9 +21,9 @@ public class Console {
     /**
      * Constructs a new Console object.
      *
-     * @param scanner          a Scanner object to read user input from the console
-     * @param commandControl   a CommandControl object to access and execute commands
-     * @param fileControl      a FileControl object to read and write data to files
+     * @param scanner           a Scanner object to read user input from the console
+     * @param commandControl    a CommandControl object to access and execute commands
+     * @param fileControl       a FileControl object to read and write data to files
      * @param collectionControl a CollectionControl object to access and manipulate the collection of workers
      */
 

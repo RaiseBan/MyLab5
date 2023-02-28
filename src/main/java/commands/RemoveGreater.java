@@ -20,7 +20,7 @@ public class RemoveGreater extends AbstractCommand {
      * Constructs a new RemoveGreater command with the specified CollectionControl and
      * CommunicationControl.
      *
-     * @param collectionControl The CollectionControl instance to use for command execution.
+     * @param collectionControl    The CollectionControl instance to use for command execution.
      * @param communicationControl The CommunicationControl instance to use for user interaction.
      */
     public RemoveGreater(CollectionControl collectionControl, CommunicationControl communicationControl) {
@@ -28,6 +28,7 @@ public class RemoveGreater extends AbstractCommand {
         this.collectionControl = collectionControl;
         this.communicationControl = communicationControl;
     }
+
     /**
      * Executes the RemoveGreater command.
      *
